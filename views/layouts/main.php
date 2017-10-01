@@ -40,8 +40,13 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Register', 'url' => ['/nuser/create'], 'visible'=>Yii::$app->user->isGuest],
-            ['label' => 'Myprofile', 'url' => ['/nuser/view', 'id'=>Yii::$app->user->identity->user_id], 'visible'=>!Yii::$app->user->isGuest],
+           
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Register', 'url' => ['/nuser/create']]
+            ) : (
+                ['label' => 'Myprofile', 'url' => ['/nuser/view', 'id'=>Yii::$app->user->identity->user_id]]
+                
+            ),
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
