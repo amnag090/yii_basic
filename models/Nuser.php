@@ -34,9 +34,10 @@ class Nuser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['name', 'phno', 'email', 'password', 'authKey'], 'required'],
-            [['password'], 'string'],
+            [['password'], 'string','min'=>8],
             [['authKey'], 'safe'],
-            [['name', 'phno', 'email'], 'string', 'max' => 250],
+            [['name', 'email'], 'string', 'max' => 250],
+            ['phno','string', 'max'=>10],
             [['phno'], 'unique'],
             [['email'], 'unique'],
         ];
@@ -98,6 +99,11 @@ class Nuser extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      public static function findByUsername($username)
      {
          return self::findOne(['email'=>$username]);
+     }
+
+     public static function findByPhno($username)
+     {
+         return self::findOne(['phno'=>$username]);
      }
  
      /**
